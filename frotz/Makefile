@@ -25,7 +25,7 @@ SYSCONFDIR ?= /etc
 
 # Choose your sound support
 # OPTIONS: ao, none
-SOUND_TYPE ?= ao
+SOUND_TYPE ?= none
 
 # Choose DOS options
 #DOS_NO_SOUND ?= yes
