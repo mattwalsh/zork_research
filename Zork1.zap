@@ -1,5 +1,5 @@
-	.INSERT "/Users/msw/dev/zork_research/Zork1_freq"
-	.INSERT "/Users/msw/dev/zork_research/Zork1_data"
+	.INSERT "/Users/msw/downloads/zork1-r119/zork1freq"
+	.INSERT "/Users/msw/downloads/zork1-r119/zork1_data"
 
 	.FUNCT ZPROB,BASE
 	ZERO? LUCKY /?L1
@@ -419,14 +419,12 @@ START::
 ?L1:	SET 'P-CONT,0
 ?L121:	CALL NULL-F
 	ZERO? P-WON /FALSE
-	EQUAL? PRSA,V?BRIEF,V?TELL,V?SCAN /TRUE
-	EQUAL? PRSA,V?SAVE,V?VERBOSE,V?SUPER-BRIEF /TRUE
-	EQUAL? PRSA,V?RESTART,V?QUIT,V?VERSION /TRUE
-	EQUAL? PRSA,V?UNSCRIPT,V?SCRIPT,V?SCORE /TRUE
-	EQUAL? PRSA,V?RESTORE /TRUE
+	EQUAL? PRSA,V?SUPER-BRIEF,V?BRIEF,V?TELL /TRUE
+	EQUAL? PRSA,V?VERSION,V?SAVE,V?VERBOSE /TRUE
+	EQUAL? PRSA,V?SCORE,V?RESTART,V?QUIT /TRUE
+	EQUAL? PRSA,V?RESTORE,V?UNSCRIPT,V?SCRIPT /TRUE
 	CALL CLOCKER >V
-	CALL V-SCAN >STACK
-	RSTACK
+	RETURN V
 
 	.FUNCT PERFORM,A,O=0,I=0,V,OA,OO,OI
 	SET 'OA,PRSA
@@ -2836,14 +2834,6 @@ Release "
 
 	.FUNCT V-LOCK
 	PRINTR "It doesn't seem to work."
-
-	.FUNCT V-SCAN
-	PRINTI "<-- START IMAGE GEN-->"
-	CRLF
-	CALL DESCRIBE-ROOM,1 >STACK
-	ZERO? STACK /?L3
-	CALL DESCRIBE-OBJECTS,1
-?L3:	PRINTR "<-- END IMAGE GEN-->"
 
 	.FUNCT V-LOOK
 	CALL DESCRIBE-ROOM,1 >STACK
@@ -7866,5 +7856,5 @@ It takes a talented person to be killed while already dead. YOU are such a talen
 	CALL THIS-IS-IT,TROLL >STACK
 	RSTACK
 
-	.INSERT "/Users/msw/dev/zork_research/Zork1_str"
+	.INSERT "/Users/msw/downloads/zork1-r119/zork1_str"
 	.END
