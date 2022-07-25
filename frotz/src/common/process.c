@@ -237,6 +237,7 @@ static void load_all_operands(zbyte specifier)
 
 static void dump_args()
 {
+   return;
    if (zargc == 0) return;
    for (int i = 0; i < zargc; i++) {
       printf("%d ", zargs[i]);
@@ -270,7 +271,6 @@ void interpret(void)
 		CODE_BYTE(opcode)
 #endif
 
-printf("OC now %d\n", opcode);
 		zargc = 0;
 
 		if (opcode < 0x80) {	/* 2OP opcodes */

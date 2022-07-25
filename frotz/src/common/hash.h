@@ -1,0 +1,5 @@
+#define VERSION "2.54"
+#define RELEASE_NOTES "Official release."
+#define GIT_HASH "ormat:%H"
+#define GIT_HASH_SHORT "ormat:%h"
+#define GIT_DATE "ormat:%ci"
