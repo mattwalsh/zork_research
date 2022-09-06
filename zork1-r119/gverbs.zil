@@ -856,10 +856,19 @@ killing yourself." CR CR>
 	 <TELL "It doesn't seem to work." CR>>
 
 <ROUTINE V-SCAN ()
-    <TELL "<-- START IMAGE GEN-->" CR>
+    <TELL "<RENDER>" CR>
+    <TELL "<UNDERGROUND>">
+    <COND (<NOT ,LIT> <TELL "1">) (ELSE <TELL "0">)>
+    <TELL "</UNDERGROUND>" CR>
+    <TELL "<ROOM>" CR>
 	 <COND (<DESCRIBE-ROOM T T>
 		<DESCRIBE-OBJECTS T>)>
-    <TELL "<-- END IMAGE GEN-->" CR>>
+    <TELL "</ROOM>" CR>
+    <TELL "<INVENTORY>" CR>
+    <PRINT-CONTENTS, WINNER>
+    <TELL CR "</INVENTORY>" CR>
+    <TELL "</RENDER>" CR>
+>
 
 <ROUTINE V-LOOK ()
 	 <COND (<DESCRIBE-ROOM T>

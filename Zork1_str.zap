@@ -1,4 +1,4 @@
-	; Strings to accompany /Users/msw/downloads/zork1-r119/zork1.zap
+	; Strings to accompany /Users/msw/dev/zork_research/Zork1.zap
 
 	.GSTR STR?7,""
 	.GSTR STR?37,"

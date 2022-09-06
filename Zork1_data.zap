@@ -1,4 +1,4 @@
-	; Data to accompany /Users/msw/downloads/zork1-r119/zork1.zap
+	; Data to accompany /Users/msw/dev/zork_research/Zork1.zap
 
 	FLAGS2=0
 	EXTAB=0
