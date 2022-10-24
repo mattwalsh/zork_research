@@ -2657,6 +2657,6 @@ a small opening.")
 	<SETG PLAYER ,WINNER>
 	<MOVE ,WINNER ,HERE>
 	<V-LOOK>
-   <V-SCAN>
+   <V-IMAGE-RENDER>
 	<MAIN-LOOP>
 	<AGAIN>>

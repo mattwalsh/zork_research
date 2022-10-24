@@ -1,0 +1,1 @@
+/Users/msw/dev/zork_research/zilf/bin/Release/net5.0/zilf ~/dev/zork_research/zork1-r119/zork1.zil ~/dev/zork_research/Zork1.zap && /Users/msw/dev/zork_research/zilf/bin/Release/net5.0/zapf ~/dev/zork_research/Zork1.zap ~/dev/zork_research/Zork1.z3 && ~/dev/zork_research/frotz/dfrotz ~/dev/zork_research/Zork1.z3

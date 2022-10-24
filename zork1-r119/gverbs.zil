@@ -855,8 +855,18 @@ killing yourself." CR CR>
 <ROUTINE V-LOCK ()
 	 <TELL "It doesn't seem to work." CR>>
 
-<ROUTINE V-SCAN ()
+<ROUTINE V-IMAGE-RENDER()
     <TELL "<RENDER>" CR>
+    <TELL "<SCORE>" >
+    <TELL N ,SCORE>
+    <TELL "</SCORE>" >
+    <TELL "<SCORE_MAX>350</SCORE_MAX>">
+    <TELL "<MOVES>" >
+    <TELL N ,MOVES>
+    <TELL "</MOVES>" >
+    <TELL "<RANK>" >
+    <TELL <V-SCORE-RANK>>
+    <TELL "</RANK>" >
     <TELL "<UNDERGROUND>">
     <COND (<NOT ,LIT> <TELL "1">) (ELSE <TELL "0">)>
     <TELL "</UNDERGROUND>" CR>
@@ -1649,6 +1659,8 @@ direction." CR>
 
 <ROUTINE DESCRIBE-ROOM ("OPT" (LOOK? <>) SKIP_TITLE "AUX" V? STR AV)
 	 <SET V? <OR .LOOK? ,VERBOSE>>
+	 <COND (<NOT ,ONBIT>
+      <TELL "DARK">)>
 	 <COND (<NOT ,LIT>
 		<TELL "It is pitch black.">
 		<COND (<NOT ,SPRAYED?>

@@ -4023,6 +4023,18 @@ valueless." CR>
 		      (T <TELL "twice">)>
 		<TELL "." CR>)>>
 
+<ROUTINE V-SCORE-RANK ("AUX" RANK_NOW)
+	 <COND (<EQUAL? ,SCORE 350> <TELL "Master Adventurer">)
+	       (<G? ,SCORE 330> <SET RANK_NOW "Wizard">)
+	       (<G? ,SCORE 300> <SET RANK_NOW "Master">)
+	       (<G? ,SCORE 200> <SET RANK_NOW "Adventurer">)
+	       (<G? ,SCORE 100> <SET RANK_NOW "Junior Adventurer">)
+	       (<G? ,SCORE 50> <SET RANK_NOW "Novice Adventurer">)
+	       (<G? ,SCORE 25> <SET RANK_NOW "Amateur Adventurer">)
+	       (T <SET RANK_NOW "Beginner">)>
+    <RETURN ,RANK_NOW>
+>
+
 <ROUTINE V-SCORE ("OPTIONAL" (ASK? T))
 	 #DECL ((ASK?) <OR ATOM FALSE>)
 	 <TELL "Your score is ">
@@ -4032,14 +4044,7 @@ valueless." CR>
 	 <COND (<1? ,MOVES> <TELL " move.">) (ELSE <TELL " moves.">)>
 	 <CRLF>
 	 <TELL "This gives you the rank of ">
-	 <COND (<EQUAL? ,SCORE 350> <TELL "Master Adventurer">)
-	       (<G? ,SCORE 330> <TELL "Wizard">)
-	       (<G? ,SCORE 300> <TELL "Master">)
-	       (<G? ,SCORE 200> <TELL "Adventurer">)
-	       (<G? ,SCORE 100> <TELL "Junior Adventurer">)
-	       (<G? ,SCORE 50> <TELL "Novice Adventurer">)
-	       (<G? ,SCORE 25> <TELL "Amateur Adventurer">)
-	       (T <TELL "Beginner">)>
+    <TELL <V-SCORE-RANK>>
 	 <TELL "." CR>
 	 ,SCORE>
 
