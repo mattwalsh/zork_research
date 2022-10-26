@@ -2837,33 +2837,55 @@ Release "
 	.FUNCT V-LOCK
 	PRINTR "It doesn't seem to work."
 
+	.FUNCT V-ROOM-PLACE-TYPE,THEROOM,RETVAL
+	GETP THEROOM,P?PLACETYPE >RETVAL
+	ZERO? RETVAL \?L1
+	SET 'RETVAL,STR?6
+?L1:	RETURN RETVAL
+
+	.FUNCT V-HOW-LIT,RETVAL
+	ZERO? LIT \?L1
+	SET 'RETVAL,STR?7
+	RETURN RETVAL
+?L1:	FSET? HERE,ONBIT \?L4
+	SET 'RETVAL,STR?8
+	RETURN RETVAL
+?L4:	SET 'RETVAL,STR?9
+	RETURN RETVAL
+
 	.FUNCT V-IMAGE-RENDER
 	PRINTI "<RENDER>"
+	CRLF
+	PRINTI "<ROOM_NAME>"
+	PRINTD HERE
+	PRINTI "</ROOM_NAME>"
 	CRLF
 	PRINTI "<SCORE>"
 	PRINTN SCORE
 	PRINTI "</SCORE>"
+	CRLF
 	PRINTI "<SCORE_MAX>350</SCORE_MAX>"
+	CRLF
 	PRINTI "<MOVES>"
 	PRINTN MOVES
 	PRINTI "</MOVES>"
+	CRLF
 	PRINTI "<RANK>"
 	CALL V-SCORE-RANK >STACK
 	PRINT STACK
 	PRINTI "</RANK>"
-	PRINTI "<UNDERGROUND>"
-	ZERO? LIT \?L25
-	PRINTI "1"
-	JUMP ?L29
-?L25:	PRINTI "0"
-?L29:	PRINTI "</UNDERGROUND>"
+	CRLF
+	PRINTI "<LIGHTING>"
+	CALL V-HOW-LIT >STACK
+	PRINT STACK
+	PRINTI "</LIGHTING>"
 	CRLF
 	PRINTI "<ROOM>"
 	CRLF
 	CALL DESCRIBE-ROOM,1,1 >STACK
-	ZERO? STACK /?L36
+	ZERO? STACK /?L37
 	CALL DESCRIBE-OBJECTS,1
-?L36:	PRINTI "</ROOM>"
+?L37:	PRINTI "</ROOM>"
 	CRLF
 	PRINTI "<INVENTORY>"
 	CRLF
@@ -2925,7 +2947,7 @@ Release "
 	PRINTR "There is nothing but dust there."
 
 	.FUNCT V-LOWER
-	CALL HACK-HACK,STR?6 >STACK
+	CALL HACK-HACK,STR?10 >STACK
 	RSTACK
 
 	.FUNCT V-MAKE
@@ -3058,7 +3080,7 @@ Release "
 	PRINTD PRSO
 	PRINTI " that you kill yourself, just as he might have done!"
 	CRLF
-	CALL JIGS-UP,STR?7 >STACK
+	CALL JIGS-UP,STR?11 >STACK
 	RSTACK
 ?L1:	PRINTR "That's silly!"
 
@@ -3103,7 +3125,7 @@ Release "
 ?L5:	PRINTR "It's really not clear how."
 
 	.FUNCT V-PUSH
-	CALL HACK-HACK,STR?8 >STACK
+	CALL HACK-HACK,STR?12 >STACK
 	RSTACK
 
 	.FUNCT V-PUSH-TO
@@ -3222,7 +3244,7 @@ Release "
 	PRINTR "How, exactly, can you ring that?"
 
 	.FUNCT V-RUB
-	CALL HACK-HACK,STR?9 >STACK
+	CALL HACK-HACK,STR?13 >STACK
 	RSTACK
 
 	.FUNCT V-SAY,V
@@ -3458,7 +3480,7 @@ Release "
 	PRINTI "A terrific throw! The "
 	PRINTD PRSO
 	SET 'WINNER,PLAYER
-	CALL JIGS-UP,STR?10 >STACK
+	CALL JIGS-UP,STR?14 >STACK
 	RSTACK
 ?L3:	ZERO? PRSI /?L7
 	FSET? PRSI,ACTORBIT \?L7
@@ -3586,7 +3608,7 @@ Release "
 	RETURN 2
 ?L46:	CALL NULL-F >STACK
 	ZERO? STACK \FALSE
-	CALL JIGS-UP,STR?11 >STACK
+	CALL JIGS-UP,STR?15 >STACK
 	RSTACK
 ?L45:	PRINTI "You can't go that way."
 	CRLF
@@ -3604,7 +3626,7 @@ Release "
 ?L1:	PRINTR "You should supply a direction!"
 
 	.FUNCT V-WAVE
-	CALL HACK-HACK,STR?12 >STACK
+	CALL HACK-HACK,STR?16 >STACK
 	RSTACK
 
 	.FUNCT V-WEAR
@@ -4059,7 +4081,7 @@ Release "
 	PRINTD STACK
 	JUMP ?L36
 ?L32:	PRINTI "room"
-?L36:	CALL JIGS-UP,STR?13
+?L36:	CALL JIGS-UP,STR?17
 	RTRUE
 ?L29:	ZERO? LIT \?L40
 	EQUAL? WINNER,ADVENTURER \?L40
@@ -4184,7 +4206,7 @@ Release "
 	EQUAL? PRSO,TEETH \FALSE
 	EQUAL? PRSI,PUTTY \?L3
 	IN? PRSI,WINNER \?L3
-	CALL JIGS-UP,STR?14 >STACK
+	CALL JIGS-UP,STR?18 >STACK
 	RSTACK
 ?L3:	ZERO? PRSI \?L5
 	PRINTR "Dental hygiene is highly recommended, but I'm not sure what you want to brush them with."
@@ -4380,7 +4402,7 @@ Release "
 	.FUNCT KITCHEN-WINDOW-F
 	EQUAL? PRSA,V?CLOSE,V?OPEN \?L1
 	SET 'KITCHEN-WINDOW-FLAG,1
-	CALL OPEN-CLOSE,KITCHEN-WINDOW,STR?16,STR?15 >STACK
+	CALL OPEN-CLOSE,KITCHEN-WINDOW,STR?20,STR?19 >STACK
 	RSTACK
 ?L1:	EQUAL? PRSA,V?EXAMINE \?L3
 	ZERO? KITCHEN-WINDOW-FLAG \?L3
@@ -4626,7 +4648,7 @@ The ZORK trilogy continues with ""ZORK II: The Wizard of Frobozz"" and is comple
 	RTRUE
 ?L1:	EQUAL? PRSA,V?CLOSE,V?OPEN \?L3
 	EQUAL? HERE,LIVING-ROOM \?L3
-	CALL OPEN-CLOSE,PRSO,STR?18,STR?17 >STACK
+	CALL OPEN-CLOSE,PRSO,STR?22,STR?21 >STACK
 	RSTACK
 ?L3:	EQUAL? PRSA,V?LOOK-UNDER \?L4
 	EQUAL? HERE,LIVING-ROOM \?L4
@@ -4756,11 +4778,11 @@ The ZORK trilogy continues with ""ZORK II: The Wizard of Frobozz"" and is comple
 	FSET AXE,NDESCBIT
 	FCLEAR AXE,WEAPONBIT
 	MOVE AXE,TROLL
-	PUTP TROLL,P?LDESC,STR?19
+	PUTP TROLL,P?LDESC,STR?23
 	IN? TROLL,HERE \TRUE
 	PRINTR "The troll, angered and humiliated, recovers his weapon. He appears to have an axe to grind with you."
 ?L8:	IN? TROLL,HERE \FALSE
-	PUTP TROLL,P?LDESC,STR?20
+	PUTP TROLL,P?LDESC,STR?24
 	PRINTR "The troll, disarmed, cowers in terror, pleading for his life in the guttural tongue of the trolls."
 ?L5:	EQUAL? MODE,F-DEAD \?L17
 	IN? AXE,TROLL \?L18
@@ -4775,7 +4797,7 @@ The ZORK trilogy continues with ""ZORK II: The Wizard of Frobozz"" and is comple
 	MOVE AXE,HERE
 	FCLEAR AXE,NDESCBIT
 	FSET AXE,WEAPONBIT
-?L22:	PUTP TROLL,P?LDESC,STR?21
+?L22:	PUTP TROLL,P?LDESC,STR?25
 	SET 'TROLL-FLAG,1
 	RETURN TROLL-FLAG
 ?L21:	EQUAL? MODE,F-CONSCIOUS \?L25
@@ -4784,15 +4806,15 @@ The ZORK trilogy continues with ""ZORK II: The Wizard of Frobozz"" and is comple
 	PRINTI "The troll stirs, quickly resuming a fighting stance."
 	CRLF
 ?L26:	IN? AXE,TROLL \?L31
-	PUTP TROLL,P?LDESC,STR?19
+	PUTP TROLL,P?LDESC,STR?23
 	JUMP ?L34
 ?L31:	IN? AXE,TROLL-ROOM \?L33
 	FSET AXE,NDESCBIT
 	FCLEAR AXE,WEAPONBIT
 	MOVE AXE,TROLL
-	PUTP TROLL,P?LDESC,STR?19
+	PUTP TROLL,P?LDESC,STR?23
 	JUMP ?L34
-?L33:	PUTP TROLL,P?LDESC,STR?22
+?L33:	PUTP TROLL,P?LDESC,STR?26
 ?L34:	SET 'TROLL-FLAG,0
 	RETURN TROLL-FLAG
 ?L25:	EQUAL? MODE,F-FIRST? \?L35
@@ -4883,7 +4905,7 @@ The ZORK trilogy continues with ""ZORK II: The Wizard of Frobozz"" and is comple
 	CALL REMOVE-CAREFULLY,PRSO
 	IN? PRSO,HERE \?L6
 	PRINTR "The leaves burn."
-?L6:	CALL JIGS-UP,STR?23 >STACK
+?L6:	CALL JIGS-UP,STR?27 >STACK
 	RSTACK
 ?L5:	EQUAL? PRSA,V?CUT \?L11
 	PRINTI "You rustle the leaves around, making quite a mess."
@@ -4959,10 +4981,10 @@ The ZORK trilogy continues with ""ZORK II: The Wizard of Frobozz"" and is comple
 ?L23:	EQUAL? PRSA,V?CLOSE,V?OPEN \?L26
 	ZERO? GRUNLOCK /?L27
 	EQUAL? HERE,CLEARING \?L29
-	PUSH STR?25
+	PUSH STR?29
 	JUMP ?L31
-?L29:	PUSH STR?26
-?L31:	CALL OPEN-CLOSE,GRATE,STACK,STR?24
+?L29:	PUSH STR?30
+?L31:	CALL OPEN-CLOSE,GRATE,STACK,STR?28
 	FSET? GRATE,OPENBIT \?L32
 	EQUAL? HERE,CLEARING /?L34
 	ZERO? GRATE-REVEALED \?L34
@@ -5010,7 +5032,7 @@ The ZORK trilogy continues with ""ZORK II: The Wizard of Frobozz"" and is comple
 	EQUAL? PRSO,RUSTY-KNIFE \FALSE
 	ZERO? PRSI /FALSE
 ?L8:	CALL REMOVE-CAREFULLY,RUSTY-KNIFE
-	CALL JIGS-UP,STR?27 >STACK
+	CALL JIGS-UP,STR?31 >STACK
 	RSTACK
 
 	.FUNCT KNIFE-F
@@ -5102,7 +5124,7 @@ The ZORK trilogy continues with ""ZORK II: The Wizard of Frobozz"" and is comple
 	SET 'HERE,TORCH-ROOM
 	RTRUE
 ?L11:	EQUAL? PRSA,V?LEAP \FALSE
-	CALL JIGS-UP,STR?28 >STACK
+	CALL JIGS-UP,STR?32 >STACK
 	RSTACK
 
 	.FUNCT LLD-ROOM,RARG
@@ -5264,7 +5286,7 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 	LOC WINNER >STACK
 	FSET? STACK,VEHBIT \?L5
 	PRINTR "The boat lifts gently out of the mud and is now floating on the reservoir."
-?L5:	CALL JIGS-UP,STR?29
+?L5:	CALL JIGS-UP,STR?33
 	RTRUE
 ?L3:	EQUAL? HERE,DEEP-CANYON \?L10
 	PRINTR "A sound, like that of flowing water, starts to come from below."
@@ -5345,14 +5367,14 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 	CRLF
 ?L3:	INC 'WATER-LEVEL
 	LESS? WATER-LEVEL,14 /?L10
-	CALL MUNG-ROOM,MAINTENANCE-ROOM,STR?30
+	CALL MUNG-ROOM,MAINTENANCE-ROOM,STR?34
 	CALL QUEUE,I-MAINT-ROOM,0
 	ZERO? HERE? /TRUE
-	CALL JIGS-UP,STR?31
+	CALL JIGS-UP,STR?35
 	RTRUE
 ?L10:	IN? WINNER,INFLATED-BOAT \TRUE
 	EQUAL? HERE,MAINTENANCE-ROOM,DAM-ROOM,DAM-LOBBY \TRUE
-	CALL JIGS-UP,STR?32
+	CALL JIGS-UP,STR?36
 	RTRUE
 
 	.FUNCT LEAK-FUNCTION
@@ -5564,7 +5586,7 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 ?L10:	GRTR? STACK,5 \?L6
 	CALL INT,I-CYCLOPS >STACK
 	PUT STACK,0,0
-	CALL JIGS-UP,STR?33 >STACK
+	CALL JIGS-UP,STR?37 >STACK
 	RSTACK
 ?L6:	LESS? CYCLOWRATH,0 \?L12
 	DEC 'CYCLOWRATH
@@ -6059,7 +6081,7 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 	EQUAL? PRSA,V?TAKE \?L1
 	PRINTR "A force keeps you from taking the bodies."
 ?L1:	EQUAL? PRSA,V?BURN,V?MUNG \FALSE
-	CALL JIGS-UP,STR?34 >STACK
+	CALL JIGS-UP,STR?38 >STACK
 	RSTACK
 
 	.FUNCT BLACK-BOOK
@@ -6074,13 +6096,13 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 ?L9:	PRINTR "Beside page 569, there is only one other page with any legible printing on it. Most of it is unreadable, but the subject seems to be the banishment of evil. Apparently, certain noises, lights, and prayers are efficacious in this regard."
 ?L8:	EQUAL? PRSA,V?BURN \FALSE
 	CALL REMOVE-CAREFULLY,PRSO
-	CALL JIGS-UP,STR?35 >STACK
+	CALL JIGS-UP,STR?39 >STACK
 	RSTACK
 
 	.FUNCT PAINTING-FCN
 	EQUAL? PRSA,V?MUNG \FALSE
 	PUTP PRSO,P?TVALUE,0
-	PUTP PRSO,P?LDESC,STR?36
+	PUTP PRSO,P?LDESC,STR?40
 	PRINTR "Congratulations! Unlike the other vandals, who merely stole the artist's masterpieces, you have destroyed one."
 
 	.FUNCT LANTERN
@@ -6325,7 +6347,7 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 	JUMP ?L15
 ?L11:	PRINTI "Oh dear. It appears that the smell coming from this room was coal gas. I would have thought twice about carrying flaming objects in here."
 	CRLF
-?L15:	CALL JIGS-UP,STR?37 >STACK
+?L15:	CALL JIGS-UP,STR?41 >STACK
 	RSTACK
 
 	.FUNCT BAT-D,FOO
@@ -6467,7 +6489,7 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 	RTRUE
 ?L3:	EQUAL? HERE,ON-RAINBOW \?L18
 	SET 'RAINBOW-FLAG,0
-	CALL JIGS-UP,STR?38 >STACK
+	CALL JIGS-UP,STR?42 >STACK
 	RSTACK
 ?L18:	PRINTR "A dazzling display of color briefly emanates from the sceptre."
 
@@ -6521,7 +6543,7 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 	EQUAL? PRSA,V?PUT \?L1
 	EQUAL? PRSI,RIVER \FALSE
 	EQUAL? PRSO,ME \?L5
-	CALL JIGS-UP,STR?39 >STACK
+	CALL JIGS-UP,STR?43 >STACK
 	RSTACK
 ?L5:	EQUAL? PRSO,INFLATED-BOAT \?L7
 	PRINTR "You should get in the boat then launch it."
@@ -6553,7 +6575,7 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 	CALL QUEUE,I-RIVER,STACK >STACK
 	PUT STACK,0,1
 	RTRUE
-?L3:	CALL JIGS-UP,STR?40 >STACK
+?L3:	CALL JIGS-UP,STR?44 >STACK
 	RSTACK
 
 	.FUNCT RBOAT-FUNCTION,RARG=0,TMP
@@ -6607,9 +6629,9 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 	FSET? HERE,NONLANDBIT \TRUE
 	CRLF
 	EQUAL? HERE,RESERVOIR,IN-STREAM \?L53
-	CALL JIGS-UP,STR?41
+	CALL JIGS-UP,STR?45
 	RTRUE
-?L53:	CALL JIGS-UP,STR?42
+?L53:	CALL JIGS-UP,STR?46
 	RTRUE
 ?L36:	EQUAL? PRSA,V?LAUNCH \FALSE
 	PRINTR "You're not in the boat!"
@@ -6683,7 +6705,7 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 	SET 'BEACH-DIG,-1
 	IN? SCARAB,HERE \?L5
 	FSET SCARAB,INVISIBLE
-?L5:	CALL JIGS-UP,STR?43 >STACK
+?L5:	CALL JIGS-UP,STR?47 >STACK
 	RSTACK
 ?L3:	EQUAL? BEACH-DIG,3 \?L7
 	FSET? SCARAB,INVISIBLE \FALSE
@@ -6737,7 +6759,7 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 	PRINTD PRSO
 	PRINTR " falls to the ground."
 ?L25:	EQUAL? PRSA,V?LEAP \FALSE
-	CALL JIGS-UP,STR?44 >STACK
+	CALL JIGS-UP,STR?48 >STACK
 	RSTACK
 ?L12:	EQUAL? RARG,M-ENTER \FALSE
 	CALL QUEUE,I-FOREST-ROOM,-1 >STACK
@@ -7262,7 +7284,7 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 	SET 'OD,DEF
 	ZERO? OD \?L17
 	EQUAL? PRSO,WINNER \?L19
-	CALL JIGS-UP,STR?45 >STACK
+	CALL JIGS-UP,STR?49 >STACK
 	RSTACK
 ?L19:	PRINTI "Attacking the "
 	PRINTD VILLAIN
@@ -7363,7 +7385,7 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 	SUB 0,STACK >STACK
 	INC 'STACK
 	PUTP ?TMP,P?STRENGTH,STACK
-	CALL JIGS-UP,STR?46
+	CALL JIGS-UP,STR?50
 	RFALSE
 ?L7:	RETURN RES
 
@@ -7720,24 +7742,24 @@ The gate is open; through it you can see a desolation, with a pile of mangled bo
 	PRINTI "Master Adventurer"
 	RETURN RANK$005fNOW
 ?L1:	GRTR? SCORE,330 \?L5
-	SET 'RANK$005fNOW,STR?47
-	RETURN RANK$005fNOW
-?L5:	GRTR? SCORE,300 \?L6
-	SET 'RANK$005fNOW,STR?48
-	RETURN RANK$005fNOW
-?L6:	GRTR? SCORE,200 \?L7
-	SET 'RANK$005fNOW,STR?49
-	RETURN RANK$005fNOW
-?L7:	GRTR? SCORE,100 \?L8
-	SET 'RANK$005fNOW,STR?50
-	RETURN RANK$005fNOW
-?L8:	GRTR? SCORE,50 \?L9
 	SET 'RANK$005fNOW,STR?51
 	RETURN RANK$005fNOW
-?L9:	GRTR? SCORE,25 \?L10
+?L5:	GRTR? SCORE,300 \?L6
 	SET 'RANK$005fNOW,STR?52
 	RETURN RANK$005fNOW
-?L10:	SET 'RANK$005fNOW,STR?53
+?L6:	GRTR? SCORE,200 \?L7
+	SET 'RANK$005fNOW,STR?53
+	RETURN RANK$005fNOW
+?L7:	GRTR? SCORE,100 \?L8
+	SET 'RANK$005fNOW,STR?54
+	RETURN RANK$005fNOW
+?L8:	GRTR? SCORE,50 \?L9
+	SET 'RANK$005fNOW,STR?55
+	RETURN RANK$005fNOW
+?L9:	GRTR? SCORE,25 \?L10
+	SET 'RANK$005fNOW,STR?56
+	RETURN RANK$005fNOW
+?L10:	SET 'RANK$005fNOW,STR?57
 	RETURN RANK$005fNOW
 
 	.FUNCT V-SCORE,ASK?=1
@@ -7853,11 +7875,11 @@ It takes a talented person to be killed while already dead. YOU are such a talen
 	RTRUE
 
 	.FUNCT BAG-OF-COINS-F
-	CALL STUPID-CONTAINER,BAG-OF-COINS,STR?54 >STACK
+	CALL STUPID-CONTAINER,BAG-OF-COINS,STR?58 >STACK
 	RSTACK
 
 	.FUNCT TRUNK-F
-	CALL STUPID-CONTAINER,TRUNK,STR?55 >STACK
+	CALL STUPID-CONTAINER,TRUNK,STR?59 >STACK
 	RSTACK
 
 	.FUNCT STUPID-CONTAINER,OBJ,STR

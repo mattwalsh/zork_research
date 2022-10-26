@@ -855,21 +855,40 @@ killing yourself." CR CR>
 <ROUTINE V-LOCK ()
 	 <TELL "It doesn't seem to work." CR>>
 
+<ROUTINE V-HOW-LIT("AUX" RETVAL)
+   <COND (<NOT ,LIT> <SET RETVAL "dark">) (ELSE 
+      <COND (<FSET? ,HERE ,ONBIT> <SET RETVAL "room_lighting">) (ELSE
+         <SET RETVAL "player_lighting">)> )>
+
+   
+    <RETURN ,RETVAL>
+>
+
 <ROUTINE V-IMAGE-RENDER()
     <TELL "<RENDER>" CR>
+
+    <TELL "<ROOM_NAME>" >
+    <TELL D, HERE>
+    <TELL "</ROOM_NAME>" CR >
+
     <TELL "<SCORE>" >
     <TELL N ,SCORE>
-    <TELL "</SCORE>" >
-    <TELL "<SCORE_MAX>350</SCORE_MAX>">
+    <TELL "</SCORE>" CR >
+
+    <TELL "<SCORE_MAX>350</SCORE_MAX>" CR>
+
     <TELL "<MOVES>" >
     <TELL N ,MOVES>
-    <TELL "</MOVES>" >
+    <TELL "</MOVES>" CR>
+
     <TELL "<RANK>" >
     <TELL <V-SCORE-RANK>>
-    <TELL "</RANK>" >
-    <TELL "<UNDERGROUND>">
-    <COND (<NOT ,LIT> <TELL "1">) (ELSE <TELL "0">)>
-    <TELL "</UNDERGROUND>" CR>
+    <TELL "</RANK>" CR>
+
+    <TELL "<LIGHTING>">
+    <TELL <V-HOW-LIT>>
+    <TELL "</LIGHTING>" CR>
+
     <TELL "<ROOM>" CR>
 	 <COND (<DESCRIBE-ROOM T T>
 		<DESCRIBE-OBJECTS T>)>
