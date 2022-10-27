@@ -1778,10 +1778,11 @@ long description (fdesc or ldesc), otherwise will print short."
 	 <COND (<SET F <FIRST? .OBJ>>
 		<REPEAT ()
 			<SET N <NEXT? .F>>
-         <TELL "<ITEM>" D .F "</ITEM>" CR>
+         <TELL "<ITEM name=\"" D .F "\">">
+         <COND (<FIRST? .F> <TELL CR><PRINT-FLAT-CONTENTS .F>)>
+         <TELL "</ITEM>" CR>
 			<SET F .N>
-			<COND (<NOT .F>
-			       <RTRUE>)>
+			<COND (<NOT .F> <RTRUE>)>
 >)>>
 
 <ROUTINE PRINT-CONTENTS (OBJ "AUX" F N (1ST? T) (IT? <>) (TWO? <>))
