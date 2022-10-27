@@ -894,8 +894,9 @@ killing yourself." CR CR>
 		<DESCRIBE-OBJECTS T>)>
     <TELL "</ROOM>" CR>
     <TELL "<INVENTORY>" CR>
-    <PRINT-CONTENTS, WINNER>
-    <TELL CR "</INVENTORY>" CR>
+
+    <PRINT-FLAT-CONTENTS, WINNER>
+    <TELL "</INVENTORY>" CR>
     <TELL "</RENDER>" CR>
 >
 
@@ -1772,6 +1773,16 @@ long description (fdesc or ldesc), otherwise will print short."
 	 <CRLF>
 	 <COND (<AND <SEE-INSIDE? .OBJ> <FIRST? .OBJ>>
 		<PRINT-CONT .OBJ .V? .LEVEL>)>>
+
+<ROUTINE PRINT-FLAT-CONTENTS (OBJ "AUX" F N )
+	 <COND (<SET F <FIRST? .OBJ>>
+		<REPEAT ()
+			<SET N <NEXT? .F>>
+         <TELL "<ITEM>" D .F "</ITEM>" CR>
+			<SET F .N>
+			<COND (<NOT .F>
+			       <RTRUE>)>
+>)>>
 
 <ROUTINE PRINT-CONTENTS (OBJ "AUX" F N (1ST? T) (IT? <>) (TWO? <>))
 	 <COND (<SET F <FIRST? .OBJ>>
