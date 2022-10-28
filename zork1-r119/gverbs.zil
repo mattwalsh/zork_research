@@ -894,9 +894,11 @@ killing yourself." CR CR>
 		<DESCRIBE-OBJECTS T>)>
     <TELL "</ROOM>" CR>
     <TELL "<INVENTORY>" CR>
-
     <PRINT-FLAT-CONTENTS, WINNER>
     <TELL "</INVENTORY>" CR>
+    <TELL "<TROPHY>" CR>
+    <PRINT-FLAT-CONTENTS, TROPHY-CASE>
+    <TELL "</TROPHY>" CR>
     <TELL "</RENDER>" CR>
 >
 
@@ -1778,9 +1780,10 @@ long description (fdesc or ldesc), otherwise will print short."
 	 <COND (<SET F <FIRST? .OBJ>>
 		<REPEAT ()
 			<SET N <NEXT? .F>>
+			<COND (<NOT <FSET? .F ,INVISIBLE>>
          <TELL "<ITEM name=\"" D .F "\">">
          <COND (<FIRST? .F> <TELL CR><PRINT-FLAT-CONTENTS .F>)>
-         <TELL "</ITEM>" CR>
+         <TELL "</ITEM>" CR>)>
 			<SET F .N>
 			<COND (<NOT .F> <RTRUE>)>
 >)>>
