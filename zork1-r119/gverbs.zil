@@ -864,6 +864,27 @@ killing yourself." CR CR>
     <RETURN ,RETVAL>
 >
 
+<ROUTINE V-ROOMS("AUX" F N TMP)
+	 <COND (<SET F <FIRST? ROOMS>>
+		<REPEAT ()
+			<SET N <NEXT? .F>>
+         
+         <TELL "<ROOM name='" D .F "' description='">
+
+		<COND (<APPLY <GETP .F ,P?ACTION> ,M-LOOK>)
+
+		      (<SET TMP <GETP .F ,P?LDESC>>
+		       <TELL .TMP >)
+		      (T
+		       <APPLY <GETP .F ,P?ACTION> ,M-FLASH>)>
+         <TELL "'>" CR>
+          <PRINT-FLAT-CONTENTS .F>
+         <TELL "</ROOM>" CR>
+   
+			<SET F .N>
+			<COND (<NOT .F> <RTRUE>)>
+>)>>
+
 <ROUTINE V-IMAGE-RENDER()
     <TELL "<RENDER>" CR>
 
