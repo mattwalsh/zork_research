@@ -917,6 +917,8 @@ killing yourself." CR CR>
     <TELL "<ROOM_ITEMS>" CR>
        <PRINT-FLAT-CONTENTS, HERE>
     <TELL "</ROOM_ITEMS>" CR>
+    <TELL "<DEATHS>" N ,DEATHS "</DEATHS>" CR>
+
     <TELL "<INVENTORY>" CR>
     <PRINT-FLAT-CONTENTS, WINNER>
     <TELL "</INVENTORY>" CR>
