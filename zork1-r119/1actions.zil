@@ -4024,7 +4024,7 @@ valueless." CR>
 		<TELL "." CR>)>>
 
 <ROUTINE V-SCORE-RANK ("AUX" RANK_NOW)
-	 <COND (<EQUAL? ,SCORE 350> <TELL "Master Adventurer">)
+	 <COND (<EQUAL? ,SCORE 350> <SET RANK_NOW "Master Adventurer">)
 	       (<G? ,SCORE 330> <SET RANK_NOW "Wizard">)
 	       (<G? ,SCORE 300> <SET RANK_NOW "Master">)
 	       (<G? ,SCORE 200> <SET RANK_NOW "Adventurer">)

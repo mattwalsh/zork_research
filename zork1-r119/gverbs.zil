@@ -1707,8 +1707,6 @@ direction." CR>
 
 <ROUTINE DESCRIBE-ROOM ("OPT" (LOOK? <>) SKIP_TITLE "AUX" V? STR AV)
 	 <SET V? <OR .LOOK? ,VERBOSE>>
-	 <COND (<NOT ,ONBIT>
-      <TELL "DARK">)>
 	 <COND (<NOT ,LIT>
 		<TELL "It is pitch black.">
 		<COND (<NOT ,SPRAYED?>
